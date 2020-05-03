@@ -425,7 +425,7 @@ private:
     TEval mEval;
 };
 
-void benchmark()
+int main()
 {
     // Benchmark only one at a time because there's some weird performance interference.
     Benchmark<Omp>().run();
@@ -434,4 +434,5 @@ void benchmark()
     //Benchmark<Ace>().run();
     //Benchmark<Sbhs>().run();
     //Benchmark<Pse>().run();
+    return 0;
 }
