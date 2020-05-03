@@ -1,3 +1,6 @@
+#include <pybind11/pybind11.h>
+
+namespace py = pybind11;
 
 #include "omp/Random.h"
 #include "omp/Hand.h"
@@ -425,14 +428,21 @@ private:
     TEval mEval;
 };
 
-int main()
+void benchmark()
 {
     // Benchmark only one at a time because there's some weird performance interference.
     Benchmark<Omp>().run();
+    std::cout << "test" << std::endl;
     //Benchmark<Skpe>().run();
     //Benchmark<Tpt>().run();
     //Benchmark<Ace>().run();
     //Benchmark<Sbhs>().run();
     //Benchmark<Pse>().run();
-    return 0;
+}
+
+PYBIND11_MODULE(benchmark, m) {
+    m.doc() = "pybind11 benchmark wrapper for performance test";
+    m.def("benchmark", &benchmark, "A function which starts omp benchmark");
+    //py::class_<Benchmark<Omp>>(m, "benchmark_omp", "benchmark class for omp")
+    //.def("run", &Benchmark<Omp>::run, "do it");
 }
