@@ -7,6 +7,9 @@
 #include <algorithm>
 #include <cmath>
 
+//#include <pybind11/pybind11>
+//namespace py = pybind11;
+
 namespace omp {
 
 // Start new calculation and spawn threads.
@@ -722,7 +725,7 @@ void EquityCalculator::updateResults(const BatchResults& stats, bool threadFinis
         mResults.stdev = std::sqrt(1e-9 + mBatchSumSqr - mBatchSum * mBatchSum / mBatchCount) / mBatchCount;
         mResults.stdevPerHand = mResults.stdev * std::sqrt(mResults.hands);
         if (mResults.enumerateAll) {
-            mResults.progress = (double)mEnumPosition / getPreflopCombinationCount();
+            mResults.progress = (double) mEnumPosition / getPreflopCombinationCount();
         } else {
             double estimatedHands = std::pow(mResults.stdev / mStdevTarget, 2) * mResults.hands;
             mResults.progress = mResults.hands / estimatedHands;
@@ -737,8 +740,11 @@ void EquityCalculator::updateResults(const BatchResults& stats, bool threadFinis
 
         mUpdateResults = mResults;
 
-        if (mCallback)
+
+        if (mCallback) {
+            //py::gil_scoped_acquire acquire;
             mCallback(mResults);
+        }
 
         mLastUpdate = t;
     }

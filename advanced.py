@@ -13,7 +13,6 @@ if __name__ == '__main__':
 
     updateInterval = 0.25 # Callback called every 0.25s.
     threads = 0 # max hardware parallelism (default)
-    # somthing wrong with callback method, only repl mode can work
     eq.start(ranges, board, dead, False, stdErrMargin, callback, updateInterval, threads)
     eq.wait()
     r = eq.getResults()

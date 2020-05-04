@@ -30,10 +30,13 @@ public:
         unsigned players = 0;
         // Equity by player (between 0 and 1).
         std::array<double, MAX_PLAYERS> equity;
+        //double equity[MAX_PLAYERS] = {};
         // Wins by player.
         std::array<uint64_t, MAX_PLAYERS> wins;
+        //uint64_t wins[MAX_PLAYERS] = {};
         // Ties by player, adjusted for equity: 2-way splits = 1/2, 3-way = 1/3 etc..
         std::array<double, MAX_PLAYERS> ties;
+        //double ties[MAX_PLAYERS] = {};
         // Wins for each combination of winning players. Index ranges from 0 to 2^(n-1), where
         // bit 0 is player 1, bit 1 player 2 etc).
         uint64_t winsByPlayerMask[1 << MAX_PLAYERS] = {};
