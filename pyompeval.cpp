@@ -44,10 +44,9 @@ PYBIND11_MODULE(pyomp, m) {
             .def(py::init<>())
             .def("getResults", &omp::EquityCalculator::getResults, "get Results Object")
             .def("stop", &omp::EquityCalculator::stop, "stop need call wait before this function")
-            .def("wait", &omp::EquityCalculator::wait, "wait threads")
-            .def("start", &omp::EquityCalculator::start, "start equity calculation, call wait() after this",
+            .def("wait", &omp::EquityCalculator::wait, py::call_guard<py::gil_scoped_release>(), "wait threads")
+            .def("start", &omp::EquityCalculator::start, py::call_guard<py::gil_scoped_release>(), "start equity calculation, call wait() after this",
                     py::arg("cardranges"), py::arg("boardcards") = 0, py::arg("deadcards") = 0,
                     py::arg("enumerateall") = false, py::arg("stdevtarget") = 5e-5, py::arg("callback") = nullptr,
                     py::arg("updateinterval") = 0.2, py::arg("threadcount") = 0);
-
 }
